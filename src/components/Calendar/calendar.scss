@@ -1,0 +1,108 @@
+.container {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(45deg, rgb(215 0 215 / 100%) 0%, #ff0062ff 100%);
+}
+
+.title {
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 400;
+    margin-bottom: 100px;
+    position: relative;
+
+    &:before {
+        content: 'DAY 02';
+        display: block;
+        min-width: 300px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 4px;
+        opacity: 0.2;
+        text-align: center;
+        font-size: 88px;
+        font-weight: bolder;
+    }
+}
+
+.calendar {
+    height: 540px;
+    width: 900px;
+    border-radius: 4px;
+    background: linear-gradient(180deg, rgb(215 0 215 / 750%) 0%, #ff0062dd 100%);
+    position: relative;
+    padding: 100px 160px 48px 240px;
+    
+    &:before {
+        content: '';
+        display: block;
+        height: 100%;
+        width: 100%;
+        background-image: url('./calendar-bg.avif');
+        background-size: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        border-radius: 4px;
+        opacity: 0.2;
+    }
+}
+
+.navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #fff;
+    margin-bottom: 48px;
+
+    button {
+        background: none;
+        border: none;
+        outline: none;
+        color: #ffffff77;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .current-month-name {
+        font-size: 48px;
+        font-weight: bold;
+    }
+}
+
+.grid{
+    display: grid;
+    grid-template-columns: 36px 36px 36px 36px 36px 36px 36px;
+    justify-content: space-between;
+}
+
+.day-name-row {
+    margin-bottom: 24px;
+
+    >div{
+        font-size: 14px;
+        text-align: center;
+        color: #ffffff;
+        font-size: 14px;
+        font-weight: bold;
+    }
+}
+
+
+.day-number {
+    width: 36px;
+    height: 36px;
+    text-align: center;
+    line-height: 36px;
+    border-radius: 50%;
+    background: #fff;
+    margin-bottom: 12px;
+}

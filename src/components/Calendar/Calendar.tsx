@@ -13,6 +13,10 @@ import {
   endOfMonth,
   format,
   getDate,
+  isSameDay,
+  isSameMonth,
+  isThisMonth,
+  isToday,
   lastDayOfWeek,
   startOfMonth,
   startOfWeek,
@@ -68,7 +72,11 @@ export default function Calendar() {
         })}
         <DaysName />
         {/* <Dates dates={allDates()} /> */}
-        {Dates({ dates: allDates() })}
+        {Dates({
+          dates: allDates(),
+          currentDate: currentDate(),
+          setCurrentDate,
+        })}
       </div>
     </main>
   );
@@ -85,12 +93,7 @@ export const Navigation = ({
   const nextMonth = addMonths(currentDate, 1);
   return (
     <div class="navigation">
-      <button
-        onClick={() => {
-          console.log(previousMonth);
-          setCurrentDate(previousMonth);
-        }}
-      >
+      <button onClick={() => setCurrentDate(previousMonth)}>
         {format(previousMonth, MONTH_FORMAT).toUpperCase()}
       </button>
       <div class="current-month-name">
@@ -117,11 +120,33 @@ export const DaysName = () => {
   );
 };
 
-export const Dates = ({ dates }: { dates: Date[] }) => {
+export const Dates = ({
+  dates,
+  currentDate,
+  setCurrentDate,
+}: {
+  dates: Date[];
+  currentDate: Date;
+  setCurrentDate: Setter<Date>;
+}) => {
+  const today = (date: Date) => isSameDay(currentDate, date);
+  const dateNotInCurrentMonth = (date: Date) => isSameMonth(currentDate, date);
   return (
     <div class="grid">
       <For each={dates}>
-        {(date) => <div class="day-number">{getDate(date)}</div>}
+        {(date) => (
+          <div
+            class={`day-number ${today(date) ? "today" : ""} ${
+              !dateNotInCurrentMonth(date) ? "extra-date" : ""
+            }`}
+            onClick={() => {
+              console.log(date);
+              setCurrentDate(date);
+            }}
+          >
+            {getDate(date)}
+          </div>
+        )}
       </For>
     </div>
   );

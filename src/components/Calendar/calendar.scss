@@ -32,8 +32,8 @@
 }
 
 .calendar {
-    min-height: 540px;
-    width: 900px;
+    min-height: 640px;
+    width: 800px;
     border-radius: 4px;
     background: linear-gradient(180deg, rgb(215 0 215 / 750%) 0%, #ff0062dd 100%);
     position: relative;
@@ -41,7 +41,8 @@
     
     &:before {
         content: '';
-        display: none;
+        display: block;
+        pointer-events: none;
         height: 100%;
         width: 100%;
         background-image: url('./calendar-bg.avif');
@@ -105,4 +106,20 @@
     border-radius: 50%;
     color: #fff;
     margin-bottom: 12px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #ffffff55;
+    }
+
+    &.today {
+        background-color: #fff;
+        color: inherit;
+        font-weight: bold;
+    }
+
+    &.extra-date {
+        opacity: 0.3;
+        pointer-events: none;
+    }
 }

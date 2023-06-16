@@ -1,25 +1,104 @@
-import { For } from "solid-js";
+import {
+  For,
+  Setter,
+  createComputed,
+  createMemo,
+  createSignal,
+} from "solid-js";
+import {
+  addMonths,
+  addYears,
+  eachDayOfInterval,
+  eachYearOfInterval,
+  endOfMonth,
+  format,
+  getDate,
+  lastDayOfWeek,
+  startOfMonth,
+  startOfWeek,
+  subMonths,
+  subYears,
+} from "date-fns";
+
 import "./calendar.scss";
 
+const YEAR_FORMAT = "yyy";
+const MONTH_FORMAT = "MMM";
+const FULL_MONTH_FORMAT = "MMMM";
+const DAY_FORMAT = "dd";
+
 export default function Calendar() {
+  const [currentDate, setCurrentDate] = createSignal(new Date());
+
+  // find start of the month of the current date
+  const startDateOfMonth = createMemo(() => startOfMonth(currentDate()));
+  // find end of the month of the current date
+  const endDateOfMonth = createMemo(() => endOfMonth(currentDate()));
+  // find start day of week for current date
+  const startDayOfWeek = createMemo(() => startOfWeek(startDateOfMonth()));
+  // find last day of week for current date
+  const endDayOfWeek = createMemo(() => lastDayOfWeek(endDateOfMonth()));
+
+  const allDates = createMemo(() =>
+    eachDayOfInterval({
+      start: startDayOfWeek(),
+      end: endDayOfWeek(),
+    })
+  );
+
+  const startYear = createMemo(() => subYears(currentDate(), 2));
+  const endYear = createMemo(() => addYears(currentDate(), 2));
+
+  const allYears = createMemo(() =>
+    eachYearOfInterval({
+      start: startYear(),
+      end: endYear(),
+    })
+  );
+
+  console.log(allYears());
+
   return (
     <main class="container">
       <h1 class="title">Calendar</h1>
       <div class="calendar">
-        <Navigation />
+        {Navigation({
+          currentDate: currentDate(),
+          setCurrentDate,
+        })}
         <DaysName />
-        <Grid />
+        {/* <Dates dates={allDates()} /> */}
+        {Dates({ dates: allDates() })}
       </div>
     </main>
   );
 }
 
-export const Navigation = () => {
+export const Navigation = ({
+  currentDate,
+  setCurrentDate,
+}: {
+  currentDate: Date;
+  setCurrentDate: Setter<Date>;
+}) => {
+  const previousMonth = subMonths(currentDate, 1);
+  const nextMonth = addMonths(currentDate, 1);
   return (
     <div class="navigation">
-      <button>FEB</button>
-      <div class="current-month-name">MARCH</div>
-      <button>JUNE</button>
+      <button
+        onClick={() => {
+          console.log(previousMonth);
+          setCurrentDate(previousMonth);
+        }}
+      >
+        {format(previousMonth, MONTH_FORMAT).toUpperCase()}
+      </button>
+      <div class="current-month-name">
+        {format(currentDate, FULL_MONTH_FORMAT).toUpperCase()}
+      </div>
+      <button onClick={() => setCurrentDate(nextMonth)}>
+        {format(nextMonth, MONTH_FORMAT).toUpperCase()}
+      </button>
     </div>
   );
 };
@@ -38,11 +117,11 @@ export const DaysName = () => {
   );
 };
 
-export const Grid = () => {
+export const Dates = ({ dates }: { dates: Date[] }) => {
   return (
     <div class="grid">
-      <For each={[...Array(30).keys()]}>
-        {(day) => <div class="day-number">{day + 1}</div>}
+      <For each={dates}>
+        {(date) => <div class="day-number">{getDate(date)}</div>}
       </For>
     </div>
   );

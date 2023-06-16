@@ -32,7 +32,7 @@
 }
 
 .calendar {
-    height: 540px;
+    min-height: 540px;
     width: 900px;
     border-radius: 4px;
     background: linear-gradient(180deg, rgb(215 0 215 / 750%) 0%, #ff0062dd 100%);
@@ -41,7 +41,7 @@
     
     &:before {
         content: '';
-        display: block;
+        display: none;
         height: 100%;
         width: 100%;
         background-image: url('./calendar-bg.avif');
@@ -80,7 +80,7 @@
 
 .grid{
     display: grid;
-    grid-template-columns: 36px 36px 36px 36px 36px 36px 36px;
+    grid-template-columns: repeat(7, 36px);
     justify-content: space-between;
 }
 
@@ -103,6 +103,6 @@
     text-align: center;
     line-height: 36px;
     border-radius: 50%;
-    background: #fff;
+    color: #fff;
     margin-bottom: 12px;
 }

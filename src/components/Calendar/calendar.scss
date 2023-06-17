@@ -32,8 +32,8 @@
 }
 
 .calendar {
-    min-height: 640px;
-    width: 800px;
+    min-height: 580px;
+    width: 900px;
     border-radius: 4px;
     background: linear-gradient(180deg, rgb(215 0 215 / 750%) 0%, #ff0062dd 100%);
     position: relative;
@@ -71,11 +71,21 @@
         color: #ffffff77;
         font-size: 14px;
         font-weight: bold;
+        cursor: pointer;
+
+        &:hover {
+            color: #fff;
+        }
     }
 
     .current-month-name {
         font-size: 48px;
         font-weight: bold;
+    }
+
+    .arrow {
+        font-size: 32px;
+        color: #ffffff;
     }
 }
 
@@ -114,7 +124,7 @@
 
     &.today {
         background-color: #fff;
-        color: inherit;
+        color: rgb(215 0 215 / 750%);
         font-weight: bold;
     }
 
@@ -122,4 +132,166 @@
         opacity: 0.3;
         pointer-events: none;
     }
+
+    &.event-day {
+        position: relative;
+
+        &:after {
+            content: '';
+            display: inline-block;
+            height: 6px;
+            width: 6px;
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 50%;
+            background-color: green;
+        }
+    }
+}
+
+.years {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    height: 80%;
+    width: 120px;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    transform: translate(50%, -50%);
+    border-radius: 4px;
+}
+
+.year-navigation {
+    padding: 12px 24px;
+    text-align: center;
+    font-size: 32px;
+    line-height: 26px;
+    color: #ff0062ff;
+    cursor: pointer;
+}
+
+.years-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow-y: hidden;
+}
+
+.year {
+    display: block;
+    width: 100%;
+    height: 40.44px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    padding: 6px 24px;
+    font-weight: bold;
+    font-size: 18px;
+    color: #ff0062ff;
+
+    &.active-year {
+        font-size: 24px;
+        position: relative;
+
+        &:before, &:after {
+            content: '';
+            display: block;
+            pointer-events: none;
+            height: 4px;
+            width: 14px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #ff0062ff;
+        }
+
+        &:before{
+            left: 8px;
+        } 
+        &:after {
+            right: 8px;
+        }
+
+        &>div{
+            transform: none!important;
+        }
+    }
+}
+
+.events {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    height: 80%;
+    width: 240px;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    transform: translate(-50%, -50%);
+    border-radius: 4px;
+}
+
+.profile-picture {
+    height: 84px;
+    width: 84px;
+    border-radius: 50%;
+    margin: -42px auto 24px auto;
+    border: 4px solid #fff
+}
+
+.events-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.event {
+    padding: 12px 24px;
+}
+
+.event-time {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 6px;
+    color:  rgb(215 0 215 / 750%);
+}
+
+.event-title {
+    font-size: 18px;
+    margin-bottom: 6px;
+    color: #ff0062ff
+}
+
+.event-description {
+    color: #848484;
+    font-size: 13px;
+    line-height: 18px;
+    margin-bottom: 6px;
+}
+
+.place {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #848484;
+    font-size: 13px;
+}
+
+.marker {
+    width: 16px;
+    height: 16px;
+    
+    path{
+        fill: #848484
+    }
+}
+
+
+.no-events {
+    padding: 12px 24px;
+    color: #848484;
+    font-style: italic;
 }

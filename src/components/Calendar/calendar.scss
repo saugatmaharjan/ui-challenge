@@ -200,19 +200,20 @@
             content: '';
             display: block;
             pointer-events: none;
-            height: 4px;
-            width: 14px;
+            height: 2px;
+            width: 12px;
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
             background-color: #ff0062ff;
+            opacity: 0.5;
         }
 
         &:before{
-            left: 8px;
+            left: 18px;
         } 
         &:after {
-            right: 8px;
+            right: 18px;
         }
 
         &>div{

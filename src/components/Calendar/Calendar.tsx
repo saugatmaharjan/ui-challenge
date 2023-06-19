@@ -200,6 +200,7 @@ export const Years = ({
                       [0.9, 0.4],
                       Math.abs(5 - (i() + 1))
                     )})`,
+                    opacity: range([1, 4], [0.8, 0.2], Math.abs(5 - (i() + 1))),
                   }}
                 >
                   {getYear(year)}
